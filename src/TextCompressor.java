@@ -25,21 +25,22 @@
  *  The {@code TextCompressor} class provides static methods for compressing
  *  and expanding natural language through textfile input.
  *
- *  @author Zach Blick, YOUR NAME HERE
+ *  @author Zach Blick, Sabrina Vohra
  */
 public class TextCompressor {
 
     private static void compress() {
-
         // TODO: Complete the compress() method
-
+        // Make a map and assign a new integer value to each new word (8 bits/word rather than 8 bits/char)
+        // Add each new word to the map
+        // Print out the new value of the word according to the map
         BinaryStdOut.close();
     }
 
     private static void expand() {
-
         // TODO: Complete the expand() method
-
+        // Use the map to find the word that corresponds to the integer value
+        // Print out the word that corresponds--do this for every word
         BinaryStdOut.close();
     }
 
