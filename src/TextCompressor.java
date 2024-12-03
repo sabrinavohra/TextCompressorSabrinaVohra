@@ -32,21 +32,18 @@ import java.util.ArrayList;
 public class TextCompressor {
     private static ArrayList<String> words;
 
-    public TextCompressor() {
-        words = new ArrayList<>();
-    }
-
     private static void compress() {
         // TODO: Complete the compress() method
+        words = new ArrayList<>();
         String file = BinaryStdIn.readString();
         String[] splitUp = file.split(" ");
         for(String word: splitUp) {
-            if(words.contains(word)) {
+            if(!words.contains(word)) {
+                words.add(word);
                 int index = words.indexOf(word);
                 BinaryStdOut.write(index, 16);
             }
             else {
-                words.add(word);
                 int index = words.indexOf(word);
                 BinaryStdOut.write(index, 16);
             }
@@ -64,7 +61,6 @@ public class TextCompressor {
             String theWord = words.get(binary);
             BinaryStdOut.write(theWord + " ");
         }
-
         // Use the map to find the word that corresponds to the integer value
         // Print out the word that corresponds--do this for every word
         BinaryStdOut.close();
