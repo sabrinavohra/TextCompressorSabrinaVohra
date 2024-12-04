@@ -60,6 +60,7 @@ public class TextCompressor {
                 if(!words.contains(word)) {
                     for(int i = 0; i < word.length(); i++) {
                         BinaryStdOut.write('l');
+                        BinaryStdOut.write(word.length(), 10);
                         BinaryStdOut.write(letters.indexOf(word.substring(i, i + 1)), 10);
                     }
                 }
@@ -95,7 +96,12 @@ public class TextCompressor {
         while(!BinaryStdIn.isEmpty()) {
             char start = BinaryStdIn.readChar();
             if(start == 'l') {
-                // For each upcoming 10-bit part, find corresponding letter and repeat until word ends (???)
+                int length = BinaryStdIn.readInt(10);
+                for(int i = 0; i < length; i++) {
+                    int current = BinaryStdIn.readInt(10);
+                    String theLetter = letters.get(current);
+                    BinaryStdOut.write(theLetter);
+                }
             }
             if(start == 's') {
                 int index = BinaryStdIn.readInt(10);
