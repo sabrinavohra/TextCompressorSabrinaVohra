@@ -36,23 +36,34 @@ import java.util.Scanner;
  *  @author Zach Blick, Sabrina Vohra
  */
 public class TextCompressor {
+    public static final int BEGINNING_ADD = 81;
 
     private static void compress() throws IOException {
         // TODO: Complete the compress() method
         TST prefixes = new TST();
         String text = BinaryStdIn.readString();
         int index = 0;
-        int add = 0;
+        int add = BEGINNING_ADD;
         while(index < text.length()) {
             int lookup = prefixes.lookup(text.substring(index, index + 1));
+            String currentPrefix = "";
+            while(lookup != TST.EMPTY) {
+                currentPrefix += text.substring(index, index + 1);
+                index++;
+                lookup = prefixes.lookup(text.substring(index, index + 1));
+            }
+            if(lookup == TST.EMPTY) {
+                prefixes.insert(currentPrefix, add);
+                BinaryStdOut.write(prefixes.lookup(currentPrefix));
+                add++;
+            }
         }
         BinaryStdOut.close();
     }
 
     private static void expand() throws IOException {
         // TODO: Complete the expand() method
-        // Use the map to find the word that corresponds to the integer value
-        // Print out the word that corresponds--do this for every word
+
         BinaryStdOut.close();
     }
 
