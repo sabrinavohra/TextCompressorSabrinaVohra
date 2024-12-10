@@ -8,5 +8,6 @@ Name: Sabrina Vohra
 | 12/2  | 10:25 - 11:00pm | I ran into a problem with my idea with the static variables and the ArrayList. For some reason, the values won't carry over from the compress() to expand() method, so the map cannot be properly accessed. |
 | 12/3  | 11:15 - 11:55am |                                                                            I worked through differentiating between common words and uncommon by turning some into binary by letter and some by whole word. |
 | 12/3  |  5:10 - 5:35pm  |                                                                                                                                    I completed a basic version of the code that I started writing in class. |
+| 12/10 | 12:45 - 1:20pm  |                                                                                    I worked through the LZW version of compress() with Mr. Blick's help. I'm trying to figure out how to find the prefixes. |
 
 To add a new row to the table, click into a cell and then hit shift-enter.
