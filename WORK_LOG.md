@@ -10,5 +10,6 @@ Name: Sabrina Vohra
 | 12/3  |  5:10 - 5:35pm  |                                                                                                                                    I completed a basic version of the code that I started writing in class. |
 | 12/10 | 12:45 - 1:20pm  |                                                                                    I worked through the LZW version of compress() with Mr. Blick's help. I'm trying to figure out how to find the prefixes. |
 | 12/10 |  1:20 - 1:45pm  |                                                   I continued working through the LZW algorithm and worked through the while method. I think I have more clarity, and my next step is to approach expand(). |
+| 12/12 | 10:05 - 10:40am |         I added all the values up to 256 in compress() and started working on expand(). I am currently stuck on how to figure out the letter/String value for a code if it is greater than 256 in expand(). |
 
 To add a new row to the table, click into a cell and then hit shift-enter.

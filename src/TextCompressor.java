@@ -36,11 +36,16 @@ import java.util.Scanner;
  *  @author Zach Blick, Sabrina Vohra
  */
 public class TextCompressor {
-    public static final int BEGINNING_ADD = 81;
+    public static final int BEGINNING_ADD = 256;
 
     private static void compress() throws IOException {
         // TODO: Complete the compress() method
         TST prefixes = new TST();
+        for(int i = 0; i < BEGINNING_ADD; i++) {
+            char j = (char) i;
+            String toInsert = Character.toString(j);
+            prefixes.insert(toInsert, i);
+        }
         String text = BinaryStdIn.readString();
         int index = 0;
         int add = BEGINNING_ADD;
@@ -63,7 +68,22 @@ public class TextCompressor {
 
     private static void expand() throws IOException {
         // TODO: Complete the expand() method
-
+        String[] codes = new String[BEGINNING_ADD];
+        for(int i = 0; i < BEGINNING_ADD; i++) {
+            char j = (char) i;
+            String toInsert = Character.toString(j);
+            codes[i] = toInsert;
+        }
+        int add = BEGINNING_ADD;
+        int current = BinaryStdIn.readInt(2);
+        while(!BinaryStdIn.isEmpty()) {
+            if(current < BEGINNING_ADD) {
+                BinaryStdOut.write(codes[current]);
+            }
+            else {
+                // How to use the next value to add?
+            }
+        }
         BinaryStdOut.close();
     }
 
