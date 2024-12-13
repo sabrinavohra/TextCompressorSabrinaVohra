@@ -21,14 +21,6 @@
  *  = 43.54% compression ratio!
  ******************************************************************************/
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.time.format.TextStyle;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 /**
  *  The {@code TextCompressor} class provides static methods for compressing
  *  and expanding natural language through textfile input.
@@ -36,9 +28,11 @@ import java.util.Scanner;
  *  @author Zach Blick, Sabrina Vohra
  */
 public class TextCompressor {
-    public static final int BEGINNING_ADD = 256;
+    public static final int BEGINNING_ADD = 257;
+    public static final int BYTE_SIZE = 10;
+    public static final int MAX_SIZE = 1000;
 
-    private static void compress() throws IOException {
+    private static void compress() {
         // TODO: Complete the compress() method
         TST prefixes = new TST();
         for(int i = 0; i < BEGINNING_ADD; i++) {
@@ -49,7 +43,7 @@ public class TextCompressor {
         String text = BinaryStdIn.readString();
         int index = 0;
         int add = BEGINNING_ADD;
-        while(index < text.length()) {
+        while(index < text.length() - 2) {
             int lookup = prefixes.lookup(text.substring(index, index + 1));
             String currentPrefix = "";
             while(lookup != TST.EMPTY) {
@@ -66,23 +60,24 @@ public class TextCompressor {
         BinaryStdOut.close();
     }
 
-    private static void expand() throws IOException {
+    private static void expand() {
         // TODO: Complete the expand() method
-        String[] codes = new String[BEGINNING_ADD];
+        String[] codes = new String[MAX_SIZE];
         for(int i = 0; i < BEGINNING_ADD; i++) {
             char j = (char) i;
             String toInsert = Character.toString(j);
             codes[i] = toInsert;
         }
         int add = BEGINNING_ADD;
-        int current = BinaryStdIn.readInt(2);
+        int current = BinaryStdIn.readInt(BYTE_SIZE);
         while(!BinaryStdIn.isEmpty()) {
-            if(current < BEGINNING_ADD) {
-                BinaryStdOut.write(codes[current]);
-            }
-            else {
-                // How to use the next value to add?
-            }
+            BinaryStdOut.write(codes[current]);
+            int lookAhead = BinaryStdIn.readInt(BYTE_SIZE);
+            String associate = codes[lookAhead];
+            String toAdd = associate + codes[current];
+            codes[add] = toAdd;
+            add++;
+            current = BinaryStdIn.readInt(BYTE_SIZE);
         }
         BinaryStdOut.close();
     }
