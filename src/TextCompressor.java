@@ -29,6 +29,7 @@
  */
 public class TextCompressor {
     public static final int BEGINNING_ADD = 257;
+    public static final int EOF = 256;
     public static final int BYTE_SIZE = 10;
     public static final int MAX_SIZE = 1000;
 
@@ -41,22 +42,20 @@ public class TextCompressor {
             prefixes.insert(toInsert, i);
         }
         String text = BinaryStdIn.readString();
-        int index = 0;
         int add = BEGINNING_ADD;
-        while(index < text.length() - 2) {
-            int lookup = prefixes.lookup(text.substring(index, index + 1));
-            String currentPrefix = "";
-            while(lookup != TST.EMPTY) {
-                currentPrefix += text.substring(index, index + 1);
-                index++;
-                lookup = prefixes.lookup(text.substring(index, index + 1));
-            }
-            if(lookup == TST.EMPTY) {
-                prefixes.insert(currentPrefix, add);
-                BinaryStdOut.write(prefixes.lookup(currentPrefix));
+        int index = 0;
+        while(index < text.length()) {
+            String lookup = prefixes.getLongestPrefix(text, index);
+            int code = prefixes.lookup(lookup);
+            BinaryStdOut.write(code, BYTE_SIZE);
+            int lookupLength = lookup.length();
+            if(index + lookupLength < text.length() && add < MAX_SIZE) {
+                prefixes.insert(text.substring(index, index + lookupLength + 1), add);
                 add++;
             }
+            index += lookupLength;
         }
+        BinaryStdOut.write(EOF, BYTE_SIZE);
         BinaryStdOut.close();
     }
 
