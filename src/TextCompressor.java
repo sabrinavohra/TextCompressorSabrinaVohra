@@ -30,7 +30,7 @@
 public class TextCompressor {
     public static final int BEGINNING_ADD = 257;
     public static final int EOF = 256;
-    public static final int BYTE_SIZE = 10;
+    public static final int BYTE_SIZE = 16;
     public static final int MAX_SIZE = 1000;
 
     private static void compress() {
@@ -69,14 +69,29 @@ public class TextCompressor {
         }
         int add = BEGINNING_ADD;
         int current = BinaryStdIn.readInt(BYTE_SIZE);
+        if(current == EOF) {
+            return;
+        }
+        String currentString = codes[current];
         while(!BinaryStdIn.isEmpty()) {
-            BinaryStdOut.write(codes[current]);
+            BinaryStdOut.write(currentString);
             int lookAhead = BinaryStdIn.readInt(BYTE_SIZE);
-            String associate = codes[lookAhead];
-            String toAdd = associate + codes[current];
-            codes[add] = toAdd;
-            add++;
-            current = BinaryStdIn.readInt(BYTE_SIZE);
+            if (lookAhead == EOF) {
+                break;
+            }
+            String next;
+            if (lookAhead < add) {
+                next = codes[lookAhead];
+            }
+            else {
+                next = currentString + currentString.charAt(0);
+            }
+
+            if(add < codes.length) {
+                codes[add] = currentString + next.charAt(0);
+                add++;
+            }
+            currentString = next;
         }
         BinaryStdOut.close();
     }
