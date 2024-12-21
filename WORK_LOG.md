@@ -15,5 +15,6 @@ Name: Sabrina Vohra
 | 12/13 |  9:20 - 9:30am  |              I worked on debugging an out of bounds error that I think is caused by the way I'm incrementing through the text in compress(). I think I need to rethink the way I'm moving through the file. |
 | 12/15 | 10:25 - 10:40pm |        I looked through my code and made sure the process I followed made sense. I tried to rethink the compress() code to not use substring because I figured that was the root of my out of bounds error. |
 | 12/19 |  2:50 - 3:15pm  |                                                                                                                                                       I worked on the expand() code and tested my solution. |
+| 12/20 |  6:10 - 6:20pm  |                                                                                                                                                                                           I wrote comments. |
 
 To add a new row to the table, click into a cell and then hit shift-enter.

@@ -34,8 +34,8 @@ public class TextCompressor {
     public static final int MAX_SIZE = 1000;
 
     private static void compress() {
-        // TODO: Complete the compress() method
         TST prefixes = new TST();
+        // Adds all letters into a TST
         for(int i = 0; i < BEGINNING_ADD; i++) {
             char j = (char) i;
             String toInsert = Character.toString(j);
@@ -45,22 +45,24 @@ public class TextCompressor {
         int add = BEGINNING_ADD;
         int index = 0;
         while(index < text.length()) {
+            // Looks up longest prefix that matches
             String lookup = prefixes.getLongestPrefix(text, index);
-            int code = prefixes.lookup(lookup);
-            BinaryStdOut.write(code, BYTE_SIZE);
-            int lookupLength = lookup.length();
-            if(index + lookupLength < text.length() && add < MAX_SIZE) {
-                prefixes.insert(text.substring(index, index + lookupLength + 1), add);
+            // Writes code out from looked up prefix
+            BinaryStdOut.write(prefixes.lookup(lookup), BYTE_SIZE);
+            // Adds prefix to TST / next character
+            if(index + lookup.length() < text.length() && add < MAX_SIZE) {
+                prefixes.insert(text.substring(index, index + lookup.length() + 1), add);
                 add++;
             }
-            index += lookupLength;
+            // Moves to next character
+            index += lookup.length();
         }
         BinaryStdOut.write(EOF, BYTE_SIZE);
         BinaryStdOut.close();
     }
 
     private static void expand() {
-        // TODO: Complete the expand() method
+        // Adds prefixes into array
         String[] codes = new String[MAX_SIZE];
         for(int i = 0; i < BEGINNING_ADD; i++) {
             char j = (char) i;
@@ -69,28 +71,33 @@ public class TextCompressor {
         }
         int add = BEGINNING_ADD;
         int current = BinaryStdIn.readInt(BYTE_SIZE);
+        // Ends code if file has ended
         if(current == EOF) {
             return;
         }
         String currentString = codes[current];
         while(!BinaryStdIn.isEmpty()) {
             BinaryStdOut.write(currentString);
+            // Reads in next String and checks to make sure the file has not ended
             int lookAhead = BinaryStdIn.readInt(BYTE_SIZE);
             if (lookAhead == EOF) {
                 break;
             }
             String next;
+            // Initializes next code as next variable
             if (lookAhead < add) {
                 next = codes[lookAhead];
             }
+            // Takes care of edge case
             else {
                 next = currentString + currentString.charAt(0);
             }
-
+            // Adds current String and first character of the next String into the array
             if(add < codes.length) {
                 codes[add] = currentString + next.charAt(0);
                 add++;
             }
+            // Makes the current String the next to increment
             currentString = next;
         }
         BinaryStdOut.close();
