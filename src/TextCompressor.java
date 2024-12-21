@@ -47,9 +47,8 @@ public class TextCompressor {
         while(index < text.length()) {
             // Looks up longest prefix that matches
             String lookup = prefixes.getLongestPrefix(text, index);
-            // Writes code out from looked up prefix
             BinaryStdOut.write(prefixes.lookup(lookup), BYTE_SIZE);
-            // Adds prefix to TST / next character
+            // Adds new prefix to TST at correct index
             if(index + lookup.length() < text.length() && add < MAX_SIZE) {
                 prefixes.insert(text.substring(index, index + lookup.length() + 1), add);
                 add++;
